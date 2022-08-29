@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  grade: 1
+  due_date: 2022-08-29
+  assigned_date: 2022-08-29
+  teacher: one
+  student: one
+
+two:
+  title: MyString
+  description: MyText
+  grade: 1
+  due_date: 2022-08-29
+  assigned_date: 2022-08-29
+  teacher: two
+  student: two
