@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   resources :assignments
   resources :students
-  resources :teachers
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :teachers, only: [:show]
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get '/me', to: 'teacher#show'
+  
 end
