@@ -1,7 +1,8 @@
 class TeachersController < ApplicationController
   before_action :set_teacher, only: %i[ show update destroy ]
 
-rescue_from ActiveRecord::RecordNotFound with: :render_not_found_response
+rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid_entity
 
   # GET /teachers
   def index
@@ -17,13 +18,8 @@ rescue_from ActiveRecord::RecordNotFound with: :render_not_found_response
 
   # POST /teachers
   def create
-    @teacher = Teacher.new(teacher_params)
-
-    if @teacher.save
-      render json: @teacher, status: :created, location: @teacher
-    else
-      render json: @teacher.errors, status: :unprocessable_entity
-    end
+    @teacher = Teacher.create!(teacher_params)
+    render json: @teacher, status: :created
   end
 
   # PATCH/PUT /teachers/1
@@ -48,11 +44,15 @@ rescue_from ActiveRecord::RecordNotFound with: :render_not_found_response
 
     # Only allow a list of trusted parameters through.
     def teacher_params
-      params.require(:teacher).permit(:email, :password_digest, :first_name, :last_name)
+      params.permit(:email, :password, :first_name, :last_name)
     end
 
     def render_not_found_response
       render json: {error: "Teacher Not Found"}, status: :not_found
+
+    end
+    def render_record_invalid_entity
+      render json: {error: "Record Not Valid"}, status: :unprocessable_entity
 
     end
 end

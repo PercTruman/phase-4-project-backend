@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :assignments
   resources :students
-  resources :teachers, only: [:show]
+  resources :teachers, only: [:index, :create, :show]
 
-  get '/me', to: 'teacher#show'
+  get '/login', to: 'teacher#show'
+
   
 end
