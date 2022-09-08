@@ -51,8 +51,8 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
       render json: {error: "Teacher Not Found"}, status: :not_found
 
     end
-    def render_unprocessable_entity_response
-      render json: {error: "Record Not Valid"}, status: :unprocessable_entity
+    def render_unprocessable_entity(invalid)
+      render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
 
     end
 end
