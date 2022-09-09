@@ -3,9 +3,10 @@ class StudentsController < ApplicationController
 
   # GET /students
   def index
-    @students = Student.all
-
-    render json: @students
+    if (params[:teacher_id])
+        @students = Teacher.find_by(id: params[:teacher_id]).students
+        render json: @students
+    end
   end
 
   # GET /students/1

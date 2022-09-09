@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get '/me', to: 'teachers#me'
       post '/signup', to: 'teachers#create'
       delete '/logout', to: 'sessions#destroy'
+      get '/teachers/:teacher_id/students', to: 'students#index'
       
   # end
 
