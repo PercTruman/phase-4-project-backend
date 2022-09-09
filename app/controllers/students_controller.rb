@@ -6,6 +6,8 @@ class StudentsController < ApplicationController
     if (params[:teacher_id])
         @students = Teacher.find_by(id: params[:teacher_id]).students
         render json: @students
+    else
+      render json: {error: "Invalid teacher id provided"}, status: :not_found
     end
   end
 
