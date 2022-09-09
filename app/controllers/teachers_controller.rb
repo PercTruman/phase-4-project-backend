@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: %i[ show update destroy ]
+  before_action :current_teacher, only: [:show, :update, :destroy, :me ]
 
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
@@ -19,7 +19,17 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   # POST /teachers
   def create
     @teacher = Teacher.create!(teacher_params)
+    session[:teacher_id] = @teacher.id #adds teacher instance to session
     render json: @teacher, status: :created
+  end
+
+  def me #checking if logged in
+   
+    if @teacher
+      render json: @teacher, status: :ok
+    else
+      render json: {error:"Not authenticated"}, status: :unauthorized
+    end
   end
 
   # PATCH/PUT /teachers/1
@@ -37,12 +47,10 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_teacher
+    def current_teacher
       @teacher = Teacher.find_by(id: session[:teacher_id])
     end
 
-    # Only allow a list of trusted parameters through.
     def teacher_params
       params.permit(:email, :password, :first_name, :last_name, :password_confirmation)
     end

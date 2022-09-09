@@ -5,6 +5,7 @@ ruby "2.7.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
+gem 'byebug', '~> 9.0', '>= 9.0.6'
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
