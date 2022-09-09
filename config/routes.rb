@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get '/me', to: 'teachers#me'
       post '/signup', to: 'teachers#create'
       delete '/logout', to: 'sessions#destroy'
+      
   # end
 
   # get "*path", to: "fallback#index", constraints: ->(req) {!req.xhr? && req.format.html?}
