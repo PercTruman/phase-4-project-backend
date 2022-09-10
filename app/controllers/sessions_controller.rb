@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
         teacher = Teacher.find_by(email: params[:email])
         if teacher&.authenticate(params[:password])
-             session[:teacher_id] = teacher.id                       #teacher is now logged in
+             session[:teacher_id] = teacher.id                #teacher is now logged in
             render json: teacher, status: :ok   
         else
             render json: {error:"Invalid Credentials"}, status: :unauthorized

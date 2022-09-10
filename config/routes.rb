@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # namespace :api do
       resources :assignments
       resources :students
-      resources :teachers, only: [:index, :show]
+      resources :teachers, only: [:index]
 
       post '/login', to: 'sessions#create'
       get '/me', to: 'teachers#me'

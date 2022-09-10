@@ -4,9 +4,12 @@ class StudentsController < ApplicationController
   # GET /students
   def index
     if (params[:teacher_id])
-        @students = Teacher.find_by(id: params[:teacher_id]).students
-        render json: @students
+    
+       teacher = Teacher.find(params[:teacher_id])
+        students = teacher.students
+        render json: students
     else
+    
       render json: {error: "Invalid teacher id provided"}, status: :not_found
     end
   end
