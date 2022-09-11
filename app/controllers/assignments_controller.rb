@@ -3,9 +3,15 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments
   def index
-    @assignments = Assignment.all
-
-    render json: @assignments
+    if (params[:teacher_id])
+    
+      teacher = Teacher.find(params[:teacher_id])
+       assignments = teacher.assignments
+       render json: assignments
+   else
+   
+     render json: {error: "Invalid teacher id provided"}, status: :not_found
+   end
   end
 
   # GET /assignments/1
