@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # namespace :api do
       resources :assignments
-      resources :students
+      resources :students, only: [:index, :create]
       resources :teachers, only: [:index]
 
       post '/login', to: 'sessions#create'
